@@ -1,32 +1,15 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
-public class ServidorEspecial<total> extends Thread {
-    private static ArrayList<BufferedWriter> clientes;
-    private static ServerSocket server;
-    private String nome;
-    private Socket con;
-    private InputStream in;
-    private InputStreamReader inr;
-    private BufferedReader bfr;
-
-    public ServidorEspecial(Socket con){
-        this.con = con;
-        try {
-            in  = con.getInputStream();
-            inr = new InputStreamReader(in);
-            bfr = new BufferedReader(inr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public class ServidorEspecial extends Thread {
 
     public static void main(String[] args) throws IOException {
 
-        int n1, n2, operacao;
-        double total = 0.0;
+        int operacao;
+        double n1, n2, total = 0.0;
         char simbolo;
 
         ServerSocket servidor = new ServerSocket (9999);
@@ -41,17 +24,17 @@ public class ServidorEspecial<total> extends Thread {
         ObjectInputStream input = new ObjectInputStream(cliente.getInputStream());
 
         operacao = input.readInt();
-        n1 = input.readInt();
-        n2 = input.readInt();
+        n1 = input.readDouble();
+        n2 = input.readDouble();
 
         switch(operacao){
             case 1:
                 simbolo = '%';
-                total = (Double.parseDouble(String.valueOf(n1)) * Double.parseDouble(String.valueOf(n2)) / 100);
+                total = (n1 * n2 / 100);
                 break;
             case 2:
                 simbolo = 'r';
-                total = Math.sqrt(Double.parseDouble(String.valueOf(n1)));
+                total = Math.sqrt(n1);
                 break;
             case 3:
                 simbolo = '^';
@@ -69,4 +52,3 @@ public class ServidorEspecial<total> extends Thread {
 
     }
 }
-

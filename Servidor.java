@@ -1,31 +1,12 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Servidor {
-    private static ArrayList<BufferedWriter> clientes;
-    private static ServerSocket server;
-    private String nome;
-    private Socket con;
-    private InputStream in;
-    private InputStreamReader inr;
-    private BufferedReader bfr;
-
-    public Servidor(Socket con){
-        this.con = con;
-        try {
-            in  = con.getInputStream();
-            inr = new InputStreamReader(in);
-            bfr = new BufferedReader(inr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        int n1, n2, operacao;
-        double total = 0.0;
+        int operacao;
+        double n1, n2, total = 0.0;
         char simbolo;
 
         ServerSocket servidor = new ServerSocket (9998);
@@ -40,8 +21,8 @@ public class Servidor {
         ObjectInputStream input = new ObjectInputStream(cliente.getInputStream());
 
         operacao = input.readInt();
-        n1 = input.readInt();
-        n2 = input.readInt();
+        n1 = input.readDouble();
+        n2 = input.readDouble();
 
         switch(operacao){
             case 1:
@@ -58,7 +39,7 @@ public class Servidor {
                 break;
             case 4:
                 simbolo = ':';
-                total = Double.parseDouble(String.valueOf(n1)) / Double.parseDouble(String.valueOf(n2));
+                total = n1 / n2;
                 break;
             default:
                 System.out.println("operacao invalida");

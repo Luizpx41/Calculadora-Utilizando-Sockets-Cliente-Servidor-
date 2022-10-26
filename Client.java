@@ -8,16 +8,18 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client implements ActionLiestener, KeyListener {
+public abstract class Client implements ActionLiestener, KeyListener {
 
     public static void main(String[] args) throws IOException, IDException {
 
         Socket client = null;
         Scanner scanner = new Scanner(System.in);
         String mensagem;
-        int n1, n2, operacao, opcao;
+        int opcao;
         char simbolo;
-        double total = 0.0;
+        String n1Str, n2Str;
+        float total = 0.0f, n1, n2;
+
         final String host = "127.0.1.1";
         final int portNormal = 9998;
         final int portEspecial = 9999;
@@ -45,43 +47,46 @@ public class Client implements ActionLiestener, KeyListener {
         ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
 
         System.out.print("Insira o primeiro numero: ");
-        n1 = scanner.nextInt();
+        n1Str = scanner.next();
         System.out.print("Insira o segundo numero: ");
-        n2 = scanner.nextInt();
+        n2Str = scanner.next();
         System.out.print(mensagem);
-        operacao = scanner.nextInt();
+        opcao = scanner.nextInt();
 
-        output.writeInt(operacao);
-        output.writeInt(n1);
-        output.writeInt(n2);
+        n1 = Float.parseFloat(n1Str);
+        n2 = Float.parseFloat(n2Str);
+
+        output.writeInt(opcao);
+        output.writeDouble(n1);
+        output.writeDouble(n2);
 
         output.flush();
 
-        total = input.readDouble();
+        total = input.readFloat();
         simbolo = input.readChar();
-        System.out.println(String.format("\nResultado: %d %c %d = %.4f", n1, simbolo, n2, total));
+        System.out.println(String.format("\nResultado: %.4f %c %.4f = %.4f", n1, simbolo, n2, total));
 
         scanner.close();
         client.close();
     }
 
     @Override
-    public void actionPerforned(actionEvent e){
+    public void keyPressed(KeyEvent arg0) {
     }
+
     @Override
-    public void KeyTyped(KeyEvent e){
+    public void keyReleased(KeyEvent arg0) {
     }
-    public void KeyPressed(KeyEvent e){
-    }
-    public void KeyReleased(KeyEvent e){
-    }
+
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent arg0) {
     }
+
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void actionPerformed(actionEvent e) {
     }
+
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void KeyTyped(KeyEvent e) {
     }
 }
