@@ -57,14 +57,14 @@ public abstract class Client implements ActionLiestener, KeyListener {
         n2 = Float.parseFloat(n2Str);
 
         output.writeInt(opcao);
-        output.writeDouble(n1);
-        output.writeDouble(n2);
+        output.writeFloat(n1);
+        output.writeFloat(n2);
 
         output.flush();
 
         total = input.readFloat();
         simbolo = input.readChar();
-        System.out.println(String.format("\nResultado: %.4f %c %.4f = %.4f", n1, simbolo, n2, total));
+        System.out.println(String.format("\nResultado: %.2f %c %.2f = %.2f", n1, simbolo, n2, total));
 
         scanner.close();
         client.close();

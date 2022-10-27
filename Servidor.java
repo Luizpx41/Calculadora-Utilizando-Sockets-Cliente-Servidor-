@@ -6,7 +6,7 @@ public class Servidor {
 
     public static void main(String[] args) throws IOException {
         int operacao;
-        double n1, n2, total = 0.0;
+        float n1, n2, total = 0.0f;
         char simbolo;
 
         ServerSocket servidor = new ServerSocket (9998);
@@ -21,8 +21,8 @@ public class Servidor {
         ObjectInputStream input = new ObjectInputStream(cliente.getInputStream());
 
         operacao = input.readInt();
-        n1 = input.readDouble();
-        n2 = input.readDouble();
+        n1 = input.readFloat();
+        n2 = input.readFloat();
 
         switch(operacao){
             case 1:
@@ -46,7 +46,7 @@ public class Servidor {
                 simbolo = '@';
         }
 
-        output.writeDouble(total);
+        output.writeFloat(total);
         output.writeChar(simbolo);
         output.flush();
         servidor.close();
