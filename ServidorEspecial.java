@@ -9,7 +9,7 @@ public class ServidorEspecial extends Thread {
     public static void main(String[] args) throws IOException {
 
         int operacao;
-        double n1, n2, total = 0.0;
+        float n1, n2, total = 0.0f;
         char simbolo;
 
         ServerSocket servidor = new ServerSocket (9999);
@@ -24,8 +24,8 @@ public class ServidorEspecial extends Thread {
         ObjectInputStream input = new ObjectInputStream(cliente.getInputStream());
 
         operacao = input.readInt();
-        n1 = input.readDouble();
-        n2 = input.readDouble();
+        n1 = input.readFloat();
+        n2 = input.readFloat();
 
         switch(operacao){
             case 1:
@@ -34,18 +34,18 @@ public class ServidorEspecial extends Thread {
                 break;
             case 2:
                 simbolo = 'r';
-                total = Math.sqrt(n1);
+                total = (float) Math.sqrt(n1);
                 break;
             case 3:
                 simbolo = '^';
-                total = Math.pow(n1, n2);
+                total = (float) Math.pow(n1, n2);
                 break;
             default:
                 System.out.println("operacao invalida");
                 simbolo = '@';
         }
 
-        output.writeDouble(total);
+        output.writeFloat(total);
         output.writeChar(simbolo);
         output.flush();
         servidor.close();
