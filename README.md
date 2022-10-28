@@ -8,6 +8,7 @@ cliente/servidor,sokets.</div>
 <div>4) O host do Cliente : 127.0.1.1</div>
 <div>5) A ferramenta Utilizada foi a IDE Intellij</div>
 <div>6) Execute primeiro os servidores e depois o cliente para realizar as operações</div>
+testando
 
 <h3>OBS: As informações encontradas para este projeto foram pesquisadas no site do github e em sites que continham conteúdos envolvendo calculadora envolvendo cliente/servidor e sockets.</h3>
 
